@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, url } from '../../utils';
+
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<Base title="Blog" description="개발하며 배운 것들을 기록합니다">
+  <section class="container-page pt-16 pb-10 sm:pt-20">
+    <p class="section-label rise">Blog</p>
+    <h1 class="rise rise-1 mt-3 font-display text-4xl font-semibold tracking-tight">기록</h1>
+    <p class="rise rise-2 mt-4 max-w-xl text-muted-fg">문제를 해결하며 배운 것, 그리고 다시 보고 싶은 것들을 정리합니다.</p>
+    {
+      tags.length > 0 && (
+        <ul class="rise rise-3 mt-8 flex flex-wrap gap-2" aria-label="태그">
+          {tags.map((t) => (
+            <li>
+              <a href={url(`/tags/${t}`)} class="inline-flex h-8 items-center rounded-full border border-border px-3 font-mono text-xs text-muted-fg transition-colors hover:border-fg/30 hover:text-fg">
+                #{t}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+  <section class="container-page">
+    <PostList posts={posts} />
+  </section>
+</Base>

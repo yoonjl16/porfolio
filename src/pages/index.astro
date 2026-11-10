@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PostList from '../components/PostList.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { EXPERIENCE, PROFILE, SKILLS } from '../consts';
+import { getPosts, getProjects, url } from '../utils';
+
+const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 4);
+const posts = (await getPosts()).slice(0, 4);
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="container-page pt-16 pb-20 sm:pt-24 sm:pb-28">
+    {
+      PROFILE.available && (
+        <p class="rise inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-fg">
+          <span class="relative flex size-2">
+            <span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none" />
+            <span class="relative inline-flex size-2 rounded-full bg-emerald-500" />
+          </span>
+          새로운 기회를 찾고 있습니다
+        </p>
+      )
+    }
+    <h1
+      class="rise rise-1 mt-6 font-display text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.03em] whitespace-pre-line sm:text-6xl"
+    >
+      {PROFILE.headline}
+    </h1>
+    <p class="rise rise-2 mt-6 max-w-xl text-lg leading-relaxed text-muted-fg">
+      <span class="font-medium text-fg">{PROFILE.role} {PROFILE.name}</span>입니다. {PROFILE.intro}
+    </p>
+    <div class="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
+      <a
+        href={url('/projects')}
+        class="inline-flex h-11 items-center gap-2 rounded-full bg-fg px-5 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-85"
+      >
+        프로젝트 보기 <Icon name="arrow-right" size={16} />
+      </a>
+      <a
+        href={PROFILE.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm font-medium transition-colors duration-200 hover:bg-muted"
+      >
+        <Icon name="github" size={16} /> GitHub
+      </a>
+      <a
+        href={`mailto:${PROFILE.email}`}
+        class="inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-medium text-muted-fg transition-colors duration-200 hover:text-fg"
+      >
+        <Icon name="mail" size={16} />
+        {PROFILE.email}
+      </a>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="container-page pb-20" aria-labelledby="projects">
+    <SectionHeader label="Selected Projects" href={url('/projects')} />
+    <div class="grid gap-4 sm:grid-cols-2">
+      {featured.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+
+  <!-- Skills + Experience -->
+  <section class="container-page grid gap-16 pb-20 md:grid-cols-2 md:gap-12">
+    <div>
+      <SectionHeader label="Tech Stack" />
+      <dl class="space-y-5">
+        {
+          SKILLS.map((s) => (
+            <div>
+              <dt class="mb-2 text-sm font-medium">{s.group}</dt>
+              <dd>
+                <ul class="flex flex-wrap gap-1.5">
+                  {s.items.map((i) => (
+                    <li class="rounded-md border border-border px-2 py-0.5 font-mono text-xs text-muted-fg">{i}</li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+    <div>
+      <SectionHeader label="Experience" href={url('/about')} linkText="더 보기" />
+      <ol class="relative space-y-6 border-l border-border pl-5">
+        {
+          EXPERIENCE.map((e, i) => (
+            <li class="relative">
+              <span
+                class:list={[
+                  'absolute top-1.5 -left-[25px] size-2.5 rounded-full border-2 border-bg',
+                  i === 0 ? 'bg-accent' : 'bg-border',
+                ]}
+                aria-hidden="true"
+              />
+              <p class="font-mono text-xs text-muted-fg">{e.period}</p>
+              <p class="mt-1 text-sm font-medium">
+                {e.title} <span class="font-normal text-muted-fg">· {e.org}</span>
+              </p>
+              <p class="mt-1 text-sm text-muted-fg">{e.summary}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Writing -->
+  <section class="container-page" aria-labelledby="writing">
+    <SectionHeader label="Recent Writing" href={url('/blog')} />
+    <PostList posts={posts} showDescription={false} />
+  </section>
+</Base>
