@@ -63,6 +63,6 @@ export const EXPERIENCE: {
     period: '2023 — 2027',
     title: '인공지능 학사',
     org: 'Kyonggi University',
-    summary: '자료구조, 운영체제, 데이터베이스, 소프트웨어 공학 전공.',
+    summary: '',
   },
 ];
