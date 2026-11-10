@@ -1,13 +1,11 @@
 ---
 import { PROFILE } from '../consts';
-import { url } from '../utils';
 import Icon, { type IconName } from './Icon.astro';
 
 const links: { href: string; label: string; icon: IconName }[] = [
   { href: PROFILE.github, label: 'GitHub', icon: 'github' },
   { href: PROFILE.linkedin, label: 'LinkedIn', icon: 'linkedin' },
   { href: `mailto:${PROFILE.email}`, label: 'Email', icon: 'mail' },
-  { href: url('/rss.xml'), label: 'RSS', icon: 'rss' },
 ];
 ---
 

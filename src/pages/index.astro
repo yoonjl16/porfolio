@@ -1,14 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import PostList from '../components/PostList.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { EXPERIENCE, PROFILE, SKILLS } from '../consts';
-import { getPosts, getProjects, url } from '../utils';
+import { getProjects, url } from '../utils';
 
 const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 4);
-const posts = (await getPosts()).slice(0, 4);
 ---
 
 <Base>
@@ -110,11 +108,5 @@ const posts = (await getPosts()).slice(0, 4);
         }
       </ol>
     </div>
-  </section>
-
-  <!-- Writing -->
-  <section class="container-page" aria-labelledby="writing">
-    <SectionHeader label="Recent Writing" href={url('/blog')} />
-    <PostList posts={posts} showDescription={false} />
   </section>
 </Base>
