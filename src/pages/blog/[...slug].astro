@@ -1,0 +1,102 @@
+---
+import { type CollectionEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { formatDate, getPosts, readingTime, url } from '../../utils';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, prev: posts[i + 1], next: posts[i - 1] },
+  }));
+}
+interface Props {
+  post: CollectionEntry<'blog'>;
+  prev?: CollectionEntry<'blog'>;
+  next?: CollectionEntry<'blog'>;
+}
+
+const { post, prev, next } = Astro.props;
+const { title, description, pubDate, updatedDate, tags } = post.data;
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2);
+---
+
+<Base title={title} description={description} ogType="article">
+  <article class="container-page pt-12 sm:pt-16">
+    <a href={url('/blog')} class="group inline-flex items-center gap-1.5 text-sm text-muted-fg transition-colors hover:text-fg">
+      <Icon name="arrow-left" size={14} class="transition-transform group-hover:-translate-x-0.5" /> Blog
+    </a>
+    <header class="mt-8 border-b border-border pb-8">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-muted-fg">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(post.body)}분 읽기</span>
+        {
+          updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>수정 {formatDate(updatedDate)}</span>
+            </>
+          )
+        }
+      </div>
+      <h1 class="mt-4 font-display text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">{title}</h1>
+      <p class="mt-4 text-lg text-muted-fg">{description}</p>
+      {
+        tags.length > 0 && (
+          <ul class="mt-6 flex flex-wrap gap-2">
+            {tags.map((t) => (
+              <li>
+                <a href={url(`/tags/${t}`)} class="font-mono text-xs text-muted-fg transition-colors hover:text-accent">
+                  #{t}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    {
+      toc.length > 2 && (
+        <nav aria-label="목차" class="mt-8 rounded-xl border border-border bg-card p-5 text-sm">
+          <p class="section-label mb-3">On this page</p>
+          <ol class="space-y-1.5">
+            {toc.map((h) => (
+              <li>
+                <a href={`#${h.slug}`} class="text-muted-fg transition-colors hover:text-fg">
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
+
+    <div class="prose-custom mt-10">
+      <Content />
+    </div>
+
+    <nav aria-label="이전/다음 글" class="mt-16 grid gap-3 border-t border-border pt-8 sm:grid-cols-2">
+      {
+        prev ? (
+          <a href={url(`/blog/${prev.id}`)} class="group rounded-xl border border-border p-4 transition-colors hover:border-fg/20">
+            <span class="font-mono text-xs text-muted-fg">← 이전 글</span>
+            <span class="mt-1 block text-sm font-medium group-hover:text-accent">{prev.data.title}</span>
+          </a>
+        ) : <span />
+      }
+      {
+        next && (
+          <a href={url(`/blog/${next.id}`)} class="group rounded-xl border border-border p-4 text-right transition-colors hover:border-fg/20">
+            <span class="font-mono text-xs text-muted-fg">다음 글 →</span>
+            <span class="mt-1 block text-sm font-medium group-hover:text-accent">{next.data.title}</span>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</Base>

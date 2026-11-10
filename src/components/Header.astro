@@ -1,0 +1,47 @@
+---
+import { NAV, PROFILE } from '../consts';
+import { url } from '../utils';
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = Astro.url.pathname.slice(base.length) || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="sticky top-0 z-40 border-b border-transparent bg-bg/75 backdrop-blur-md transition-colors" data-header>
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a href={url('/')} class="font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-70">
+      {PROFILE.name}<span class="text-accent">.</span>
+    </a>
+    <nav aria-label="주요 메뉴" class="flex items-center gap-0.5 sm:gap-1">
+      {
+        NAV.filter((n) => n.href !== '/').map((item) => (
+          <a
+            href={url(item.href)}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-full px-3 py-2 text-sm transition-colors duration-200',
+              isActive(item.href) ? 'bg-muted font-medium text-fg' : 'text-muted-fg hover:text-fg',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <span class="mx-1 h-5 w-px bg-border" aria-hidden="true"></span>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
+
+<script>
+  function watch() {
+    const header = document.querySelector('[data-header]');
+    if (!header) return;
+    const onScroll = () => header.classList.toggle('!border-border', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  watch();
+  document.addEventListener('astro:after-swap', watch);
+</script>

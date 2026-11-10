@@ -1,0 +1,35 @@
+---
+import { PROFILE } from '../consts';
+import { url } from '../utils';
+import Icon, { type IconName } from './Icon.astro';
+
+const links: { href: string; label: string; icon: IconName }[] = [
+  { href: PROFILE.github, label: 'GitHub', icon: 'github' },
+  { href: PROFILE.linkedin, label: 'LinkedIn', icon: 'linkedin' },
+  { href: `mailto:${PROFILE.email}`, label: 'Email', icon: 'mail' },
+  { href: url('/rss.xml'), label: 'RSS', icon: 'rss' },
+];
+---
+
+<footer class="mt-24 border-t border-border">
+  <div class="container-page flex flex-col-reverse items-start justify-between gap-4 py-8 text-sm text-muted-fg sm:flex-row sm:items-center">
+    <p>© {new Date().getFullYear()} {PROFILE.name}. Built with Astro & Tailwind CSS.</p>
+    <ul class="-ml-2 flex items-center gap-1">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              aria-label={l.label}
+              target={l.href.startsWith('http') ? '_blank' : undefined}
+              rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              class="inline-flex size-10 items-center justify-center rounded-full transition-colors duration-200 hover:bg-muted hover:text-fg"
+            >
+              <Icon name={l.icon} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

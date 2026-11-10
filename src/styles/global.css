@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  --bg: #fafafa;
+  --fg: #09090b;
+  --card: #ffffff;
+  --muted: #f4f4f5;
+  --muted-fg: #52525b;
+  --border: #e4e4e7;
+  --accent: #db2777;
+  --accent-soft: #fce7f3;
+  --ring: #18181b;
+}
+.dark {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --card: #111113;
+  --muted: #18181b;
+  --muted-fg: #a1a1aa;
+  --border: #27272a;
+  --accent: #f472b6;
+  --accent-soft: #3b0a24;
+  --ring: #e4e4e7;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ring: var(--ring);
+
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), 'Pretendard Variable', sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  html.dark { color-scheme: dark; }
+  body { @apply font-sans text-base leading-relaxed; word-break: keep-all; }
+  ::selection { background: var(--accent-soft); color: var(--fg); }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+/* ── Utilities ─────────────────────────────────────────────── */
+@utility container-page {
+  @apply mx-auto w-full max-w-3xl px-5 sm:px-6;
+}
+@utility section-label {
+  @apply font-mono text-xs uppercase tracking-[0.14em] text-muted-fg;
+}
+@utility link-underline {
+  @apply underline decoration-border decoration-1 underline-offset-4 transition-colors duration-200 hover:decoration-fg;
+}
+
+/* subtle entrance motion */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.rise { animation: rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.rise-1 { animation-delay: 60ms; }
+.rise-2 { animation-delay: 120ms; }
+.rise-3 { animation-delay: 180ms; }
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+  html { scroll-behavior: auto; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+/* ── Prose / code ──────────────────────────────────────────── */
+.prose-custom {
+  @apply prose prose-zinc dark:prose-invert max-w-none
+    prose-headings:font-display prose-headings:tracking-tight prose-headings:font-semibold
+    prose-h2:mt-12 prose-h2:text-2xl prose-h3:text-xl
+    prose-a:font-medium prose-a:underline-offset-4 prose-a:decoration-accent/60 hover:prose-a:decoration-accent
+    prose-code:font-mono prose-code:text-[0.875em] prose-code:font-normal
+    prose-code:before:content-none prose-code:after:content-none
+    prose-pre:rounded-xl prose-pre:border prose-pre:border-border prose-pre:text-sm
+    prose-img:rounded-xl prose-blockquote:border-l-accent prose-blockquote:font-normal prose-blockquote:not-italic;
+}
+.prose-custom blockquote p::before,
+.prose-custom blockquote p::after {
+  content: none;
+}
+.prose-custom :not(pre) > code {
+  @apply rounded-md bg-muted px-1.5 py-0.5;
+}
+.astro-code { background-color: var(--card) !important; }
+.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+}

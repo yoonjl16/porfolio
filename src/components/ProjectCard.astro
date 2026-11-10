@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { title, summary, period, role, stack, repo, demo } = project.data;
+---
+
+<article
+  class="group relative flex flex-col rounded-2xl border border-border bg-card p-6 transition-[border-color,box-shadow] duration-200 hover:border-fg/20 hover:shadow-[0_1px_0_0_var(--border),0_8px_24px_-12px_rgb(0_0_0/0.12)]"
+>
+  <div class="flex items-baseline justify-between gap-4">
+    <span class="font-mono text-xs text-muted-fg">{period}</span>
+    <span class="text-xs text-muted-fg">{role}</span>
+  </div>
+  <h3 class="mt-3 font-display text-lg font-semibold tracking-tight">
+    <a href={url(`/projects/${project.id}`)} class="after:absolute after:inset-0 after:rounded-2xl">
+      {title}
+    </a>
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-muted-fg">{summary}</p>
+  <ul class="mt-5 flex flex-wrap gap-1.5" aria-label="기술 스택">
+    {stack.map((s) => <li class="rounded-md bg-muted px-2 py-0.5 font-mono text-[11px] text-muted-fg">{s}</li>)}
+  </ul>
+  {
+    (repo || demo) && (
+      <div class="relative z-10 mt-5 flex gap-4 border-t border-border pt-4 text-sm">
+        {repo && (
+          <a href={repo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-fg transition-colors hover:text-fg">
+            <Icon name="github" size={15} /> Code
+          </a>
+        )}
+        {demo && (
+          <a href={demo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-fg transition-colors hover:text-fg">
+            <Icon name="arrow-up-right" size={15} /> Live
+          </a>
+        )}
+      </div>
+    )
+  }
+</article>

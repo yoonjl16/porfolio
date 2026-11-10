@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  class="inline-flex size-10 cursor-pointer items-center justify-center rounded-full text-muted-fg transition-colors duration-200 hover:bg-muted hover:text-fg"
+  aria-label="다크 모드 전환"
+>
+  <Icon name="moon" class="dark:hidden" />
+  <Icon name="sun" class="hidden dark:block" />
+</button>
+
+<script>
+  function bind() {
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+      btn.onclick = () => {
+        const dark = document.documentElement.classList.toggle('dark');
+        try {
+          localStorage.setItem('theme', dark ? 'dark' : 'light');
+        } catch {}
+      };
+    });
+  }
+  bind();
+  document.addEventListener('astro:after-swap', bind);
+</script>

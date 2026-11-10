@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  href?: string;
+  linkText?: string;
+}
+const { label, href, linkText = '전체 보기' } = Astro.props;
+---
+
+<div class="mb-6 flex items-end justify-between gap-4">
+  <h2 class="section-label">{label}</h2>
+  {
+    href && (
+      <a href={href} class="group inline-flex items-center gap-1 text-sm text-muted-fg transition-colors hover:text-fg">
+        {linkText}
+        <Icon name="arrow-right" size={14} class="transition-transform duration-200 group-hover:translate-x-0.5" />
+      </a>
+    )
+  }
+</div>
