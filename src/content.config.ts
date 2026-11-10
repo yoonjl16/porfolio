@@ -12,6 +12,7 @@ const projects = defineCollection({
     stack: z.array(z.string()),
     repo: z.string().url().optional(),
     demo: z.string().url().optional(),
+    paper: z.string().url().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(99),
   }),

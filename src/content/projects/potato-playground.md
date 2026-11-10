@@ -5,14 +5,16 @@ period: 2026.03 — 2026.06
 role: 팀장 · PM / AI 모델링
 stack: [PyTorch, Swin Transformer, ConvNeXt, OpenCV, Flask, React, Spring Boot, PostgreSQL, Docker]
 repo: https://github.com/yoonjl23/Capstone05
+paper: https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12901360
 featured: true
 order: 1
 ---
 
-## 수상
+## 수상 · 논문
 
 - **2026 캡스톤디자인 경진대회 우수상** (사업단장상)
-- **한국정보기술학회 2026 하계 종합학술대회 우수논문상** (동상) — 「MER 기반 실시간 표정 인식을 활용한 아동 사회성 향상 게임 시스템」 제1저자
+- **한국정보기술학회 2026 하계 종합학술대회 우수논문상** (동상)
+- **논문 게재** — 「MER 기반 실시간 표정 인식을 활용한 아동 사회성 향상 게임 시스템」, 한국정보기술학회 2026 하계 종합학술대회 논문집, 제1저자 · [DBpia에서 보기](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12901360)
 
 ## 문제
 
