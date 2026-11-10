@@ -4,7 +4,7 @@
 
 export const SITE = {
   title: '홍길동 — Frontend Developer',
-  description: '사용자 경험과 성능을 함께 고민하는 프론트엔드 개발자의 포트폴리오 & 기술 블로그',
+  description: '사용자 경험과 성능을 함께 고민하는 프론트엔드 개발자의 포트폴리오',
   lang: 'ko',
 };
 
@@ -15,7 +15,7 @@ export const PROFILE = {
   available: true, // 구직 중 배지 표시 여부
   headline: '읽기 쉬운 코드와\n빠른 인터페이스를 만듭니다.',
   intro:
-    'React와 TypeScript로 웹 서비스를 만들고 있습니다. 문제를 작게 쪼개고, 측정 가능한 개선을 쌓아가는 것을 좋아합니다. 배운 것은 이 블로그에 기록합니다.',
+    'React와 TypeScript로 웹 서비스를 만들고 있습니다. 문제를 작게 쪼개고, 측정 가능한 개선을 쌓아가는 것을 좋아합니다.',
   email: 'hello@example.com',
   github: 'https://github.com/yoonjl16',
   linkedin: 'https://www.linkedin.com/',
@@ -25,7 +25,6 @@ export const PROFILE = {
 export const NAV = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
-  { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
 ];
 
