@@ -4,6 +4,7 @@ summary: 프로스포츠 경기 관람과 연고지 여행을 묶어, 설문 한
 period: '2026.09'
 role: 추천 모델 · API 서버
 stack: [Python, Flask, NumPy, TourAPI, Kakao Local API, Docker]
+repo: https://github.com/clocky0000/Spovisor.git
 featured: true
 order: 3
 ---
