@@ -18,7 +18,7 @@ export const PROFILE = {
     '추천 시스템과 Vision 위주의 인공지능을 연구하고 서비스를 제작합니다.',
   email: 'world.yoonjl@gmail.com',
   github: 'https://github.com/yoonjl23',
-  linkedin: 'https://www.linkedin.com/in/%EC%9C%A4%EC%A7%80-%EC%9D%B4-14766044a/',
+  linkedin: '',
   resume: '', // PDF 링크가 있으면 입력 (예: '/porfolio/resume.pdf')
 };
 
