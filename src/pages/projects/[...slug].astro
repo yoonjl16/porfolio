@@ -11,8 +11,18 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'projects'>;
 
 const project = Astro.props;
-const { title, summary, period, role, stack, repo, demo, paper } = project.data;
+const { title, summary, period, role, stack, repo, demo, paper, video } = project.data;
 const { Content } = await render(project);
+
+// YouTube 링크(youtu.be / youtube.com/watch?v=)에서 영상 ID 추출
+function youtubeId(link?: string) {
+  if (!link) return null;
+  const u = new URL(link);
+  if (u.hostname === 'youtu.be') return u.pathname.slice(1) || null;
+  if (u.hostname.endsWith('youtube.com')) return u.searchParams.get('v');
+  return null;
+}
+const videoId = youtubeId(video);
 ---
 
 <Base title={title} description={summary} ogType="article">
@@ -38,7 +48,7 @@ const { Content } = await render(project);
         </div>
       </dl>
       {
-        (repo || demo || paper) && (
+        (repo || demo || paper || video) && (
           <div class="mt-8 flex flex-wrap gap-3">
             {repo && (
               <a href={repo} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-full border border-border px-4 text-sm font-medium transition-colors hover:bg-muted">
@@ -50,6 +60,11 @@ const { Content } = await render(project);
                 <Icon name="arrow-up-right" size={16} /> Live Demo
               </a>
             )}
+            {video && (
+              <a href={video} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-full border border-border px-4 text-sm font-medium transition-colors hover:bg-muted">
+                <Icon name="play" size={16} /> 시연 영상
+              </a>
+            )}
             {paper && (
               <a href={paper} target="_blank" rel="noopener noreferrer" class="inline-flex h-10 items-center gap-2 rounded-full border border-border px-4 text-sm font-medium transition-colors hover:bg-muted">
                 <Icon name="file-text" size={16} /> Paper (DBpia)
@@ -59,6 +74,24 @@ const { Content } = await render(project);
         )
       }
     </header>
+    {
+      videoId && (
+        <figure class="mt-10">
+          <div class="aspect-video overflow-hidden rounded-2xl border border-border bg-muted">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+              title={`${title} 시연 영상`}
+              loading="lazy"
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+              class="size-full"
+            />
+          </div>
+          <figcaption class="mt-2 text-center text-xs text-muted-fg">시연 영상</figcaption>
+        </figure>
+      )
+    }
     <div class="prose-custom mt-10">
       <Content />
     </div>

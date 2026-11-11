@@ -7,7 +7,7 @@ interface Props {
   project: CollectionEntry<'projects'>;
 }
 const { project } = Astro.props;
-const { title, summary, period, role, stack, repo, demo, paper } = project.data;
+const { title, summary, period, role, stack, repo, demo, paper, video } = project.data;
 ---
 
 <article
@@ -27,7 +27,7 @@ const { title, summary, period, role, stack, repo, demo, paper } = project.data;
     {stack.map((s) => <li class="rounded-md bg-muted px-2 py-0.5 font-mono text-[11px] text-muted-fg">{s}</li>)}
   </ul>
   {
-    (repo || demo || paper) && (
+    (repo || demo || paper || video) && (
       <div class="relative z-10 mt-5 flex gap-4 border-t border-border pt-4 text-sm">
         {repo && (
           <a href={repo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-fg transition-colors hover:text-fg">
@@ -37,6 +37,11 @@ const { title, summary, period, role, stack, repo, demo, paper } = project.data;
         {demo && (
           <a href={demo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-fg transition-colors hover:text-fg">
             <Icon name="arrow-up-right" size={15} /> Live
+          </a>
+        )}
+        {video && (
+          <a href={video} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-fg transition-colors hover:text-fg">
+            <Icon name="play" size={15} /> Video
           </a>
         )}
         {paper && (

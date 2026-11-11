@@ -6,6 +6,7 @@ role: 팀장 · PM / AI 모델링
 stack: [PyTorch, Swin Transformer, ConvNeXt, OpenCV, Flask, React, Spring Boot, PostgreSQL, Docker]
 repo: https://github.com/yoonjl23/Capstone05
 paper: https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12901360
+video: https://youtu.be/4ecRnOw7wrA
 featured: true
 order: 1
 ---
