@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { EXPERIENCE, PROFILE, SKILLS } from '../consts';
+import { CERTIFICATIONS, EXPERIENCE, PROFILE, SKILLS } from '../consts';
 ---
 
 <Base title="About" description={`${PROFILE.name}에 대하여`}>
@@ -28,6 +28,22 @@ import { EXPERIENCE, PROFILE, SKILLS } from '../consts';
               </p>
               <p class="mt-1 text-sm text-muted-fg">{e.summary}</p>
             </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="container-page mt-16">
+    <h2 class="section-label mb-6">Certifications</h2>
+    <ol class="divide-y divide-border border-y border-border">
+      {
+        CERTIFICATIONS.map((c) => (
+          <li class="grid gap-1 py-5 sm:grid-cols-[8rem_1fr] sm:gap-6">
+            <p class="pt-0.5 font-mono text-xs text-muted-fg">{c.date}</p>
+            <p class="font-medium">
+              {c.name} <span class="font-normal text-muted-fg">· {c.issuer}</span>
+            </p>
           </li>
         ))
       }

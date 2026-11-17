@@ -60,9 +60,27 @@ export const EXPERIENCE: {
     summary: '',
   },
   {
+    period: '2023.09 — 2024.06',
+    title: '초·중등 수학 강사',
+    org: '한샘비타학원',
+    summary: '개념을 학생 눈높이에 맞춰 단계별로 설명하고 학습 진도 관리',
+  },
+  {
     period: '2023 — 2027',
-    title: '인공지능 학사',
+    title: '인공지능 전공 · 응용통계학 복수전공',
     org: 'Kyonggi University',
     summary: '',
+  },
+];
+
+export const CERTIFICATIONS: {
+  date: string;
+  name: string;
+  issuer: string;
+}[] = [
+  {
+    date: '2026.11',
+    name: 'ADsP (데이터분석 준전문가)',
+    issuer: '한국데이터산업진흥원',
   },
 ];
