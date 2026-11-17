@@ -60,6 +60,12 @@ export const EXPERIENCE: {
     summary: '',
   },
   {
+    period: '1년 6개월',
+    title: '보안 동아리 활동',
+    org: 'K.knock',
+    summary: 'CTF 참가, 보안 스터디 참여, 멘토 활동',
+  },
+  {
     period: '2024.09 — 2025.06',
     title: '웰컴데스크 IT 지원 (교내 근로)',
     org: '경기대학교 전산정보원',
