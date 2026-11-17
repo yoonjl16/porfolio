@@ -60,7 +60,7 @@ export const EXPERIENCE: {
     summary: '',
   },
   {
-    period: '1년 6개월',
+    period: '2023.03 — 2024.08',
     title: '보안 동아리 활동',
     org: 'K.knock',
     summary: 'CTF 참가, 보안 스터디 참여, 멘토 활동',
