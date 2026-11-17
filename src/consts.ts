@@ -32,7 +32,7 @@ export const SKILLS = [
   { group: 'AI / ML', items: ['Tensorflow', 'PyTorch', 'OpenCV', 'Transformer', 'CNN','YOLO', 'scikit-learn'] },
   { group: 'RecSys', items: ['협업 필터링', 'Pandas', 'NDCG@k', 'HitRate@k'] },
   { group: 'Frontend', items: ['React', 'TypeScript',  'Tailwind CSS'] },
-  { group: 'Tooling', items: ['Git', 'Python', 'Docker', 'Colab',], },
+  { group: 'Tooling', items: ['Git', 'Python', 'Linux', 'Docker', 'Colab'] },
 ];
 
 export const EXPERIENCE: {
